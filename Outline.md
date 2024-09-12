@@ -37,10 +37,11 @@ ParticipantID 	|Drug name |	Date prescription was issued 	|ATC_code |
 4192264 	| Amivantamab | 	2004-08-17 	| L01FX18 | 
 4949601 	| Cisplatin 10mg/10ml solution for infusion vials | 	2020-11-12 | L01XA01 |
 
-ParticipantID | C340 | C341 | C342 | C343 |C348 | C349 | CYP2C8 | DPYD|
-|---|--|--|--|--|--|--|--|--|
-|1003076 |,|,|,|,|2019-05-25 |,|*1/*4|*5+rs17376848/*9|
-|1006134|,|,|2015-01-16|,|,|,|*1/*1|*5/*9|
+| ParticipantID | C340 | C341 | C342 | C343 | C348 | C349 | CYP2C8 | DPYD |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1003076 |  |  |  |  |  | 2019-05-25 | *1/*4 | *5+rs17376848/*9 |
+| 1006134 |  | 2015-01-16 |  |  |  |  | *1/*1 | *5/*9 |
+
 
 
 **Useful Literature Info** 
