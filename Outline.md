@@ -31,16 +31,29 @@ Explore DPYD (and CYP2C8) variants that affect chemotherapy response for lung ca
 * Significant differences among genotypes:
   * Check if the mortality rate for certain genotypes is due to their inability to metabolize certain cancer treatments 
   * Check whether there are some treatments(/or dosages) that work better for certain genotypes - Risk ndex / Treatment recommendation based on genotype clusters
-  
+
+### Important datasets
+
+##### Prescription dataset : records prescription date for each drug and the drug ATC codes
 ParticipantID 	|Drug name |	Date prescription was issued 	|ATC_code |
 | -----| ----| ----|---|
 4192264 	| Amivantamab | 	2004-08-17 	| L01FX18 | 
 4949601 	| Cisplatin 10mg/10ml solution for infusion vials | 	2020-11-12 | L01XA01 |
 
+##### Diagnosis dates for each lung cancer type and genotype for CYP2C8 and DPYD
 | ParticipantID | C340 | C341 | C342 | C343 | C348 | C349 | CYP2C8 | DPYD |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1003076 |  |  |  |  |  | 2019-05-25 | *1/*4 | *5+rs17376848/*9 |
 | 1006134 |  | 2015-01-16 |  |  |  |  | *1/*1 | *5/*9 |
+
+##### Genotypes and survival dates after each diagnosis
+| ParticipantID | CYP2C8 | DPYD | C349_days | C341_days | C340_days | C343_days | C342_days | C348_days |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1003076 | *1/*4 | *5+rs17376848/*9 | 50.0 |  |  |  |  |  |
+| 1006134 | *1/*1 | *5/*9 |  | 232.0 |  |  |  |  |
+| 1007914 | *1/*1+rs10509681 | *9/*rs2297595 | 1304.0 | 1364.0 |  |  |  |  |
+
+
 
 
 
