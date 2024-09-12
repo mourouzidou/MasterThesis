@@ -22,11 +22,17 @@ Explore DPYD (and CYP2C8) variants that affect chemotherapy response for lung ca
 ##### Currently working on this:
 * Distribution of survival time after the diagnosis with one of the 6 icd10 codes.
 * e.g. *1/*1  (*1/*1+rs10509681) seems to have an overall higher survival expectancy after diagnosis for all of the diseases (and are not diagnosed with more than one lung cancer types)
-* e.g. We observe patterns in the lower boundaries of y axis (less days of survival after diagnosis) where genotypes like *4/*4 , *1/*2 that exhibit coexistance of multiple lung cancer types and lower survival rate (survival days < 2000)
+* e.g. We observe patterns in the lower boundaries of y axis (less days of survival after diagnosis) where genotypes like *4/*4 , *2/*2 that exhibit coexistance of multiple lung cancer types and lower survival rate (survival days < 2000)
 ![image](https://github.com/user-attachments/assets/df341b3a-0fc6-470d-acf1-e7a027188565)
 
 
-
+TODO: 
+* Cluster genotypes both for CYP2C8 and DPYD and observe patterns in the survival rate
+* Significant differences among genotypes:
+      * Check if the mortality rate for certain genotypes is due to their inability to metabolize certain cancer treatments
+ParticipantID 	|Drug name |	Date prescription was issued 	|ATC_code
+4192264 	| Amivantamab | 	2004-08-17 	| L01FX18
+4949601 	| Cisplatin 10mg/10ml solution for infusion vials | 	2020-11-12 
 
 
 
