@@ -26,33 +26,26 @@ Explore DPYD (and CYP2C8) variants that affect chemotherapy response for lung ca
 ![image](https://github.com/user-attachments/assets/df341b3a-0fc6-470d-acf1-e7a027188565)
 
 
-TODO: 
+**TODO**: 
 * Cluster genotypes both for CYP2C8 and DPYD and observe patterns in the survival rate
 * Significant differences among genotypes:
-      * Check if the mortality rate for certain genotypes is due to their inability to metabolize certain cancer treatments
+  * Check if the mortality rate for certain genotypes is due to their inability to metabolize certain cancer treatments 
+  * Check whether there are some treatments(/or dosages) that work better for certain genotypes - Risk ndex / Treatment recommendation based on genotype clusters
   
 ParticipantID 	|Drug name |	Date prescription was issued 	|ATC_code |
 | -----| ----| ----|---|
 4192264 	| Amivantamab | 	2004-08-17 	| L01FX18 | 
-4949601 	| Cisplatin 10mg/10ml solution for infusion vials | 	2020-11-12 |
+4949601 	| Cisplatin 10mg/10ml solution for infusion vials | 	2020-11-12 | L01XA01 |
+
+ParticipantID | C340 | C341 | C342 | C343 |C348 | C349 | CYP2C8 | DPYD|
+|---|--|--|--|--|--|--|--|--|
+|1003076 |,|,|,|,|,|,|2019-05-25 |*1/*4|*5+rs17376848/*9|
+|1006134|,|,|2015-01-16|,|,|,|,|,|*1/*1|*5/*9|
 
 
+**Useful Literature Info** 
+* *2 + *3 + *4 is associated with increased overall survival when treated with carboplatin or cisplatin in people with Carcinoma, Non-Small-Cell Lung as compared to CYP2C8 *1/*1.
+* match cancer related drugs with atc codes and filter drug dataset https://www.anticancerfund.org/database-cancer-drugs
+* Check other Malignant neoplasms of respiratory and intrathoracic organs C30-C39 https://www.icd10data.com/ICD10CM/Codes/C00-D49/C30-C39
 
-    ADR
-    Check survival timeline
-    Dosages or alernative therapies for lung cancer
-    Suugest alternative?
-    we have no data for carboplatin - drug of interest - platin cbased chemotherapy cisplatin
-
-https://www.pharmgkb.org/literature/15145754/variantAnnotation variant annotation
-*CYP2C8
-
-*2 + *3 + *4 is associated with increased overall survival when treated with carboplatin or cisplatin in people with Carcinoma, Non-Small-Cell Lung as compared to CYP2C8 *1/*1.
-*DPYD
-
-Reference is associated with increased progression-free survival and overall survival when treated with carboplatin or cisplatin in people with Carcinoma, Non-Small-Cell Lung.
-Step 1 : Check which drugs are used for lung cancer (Non-Small (cisplatin) and others)
-
-List of drugs: https://www.cancer.gov/about-cancer/treatment/drugs/lung
-
-Drugs Approved for Non-Small Cell Lung Cancer
+  
