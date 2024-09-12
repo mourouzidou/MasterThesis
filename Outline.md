@@ -30,9 +30,10 @@ TODO:
 * Cluster genotypes both for CYP2C8 and DPYD and observe patterns in the survival rate
 * Significant differences among genotypes:
       * Check if the mortality rate for certain genotypes is due to their inability to metabolize certain cancer treatments
-ParticipantID 	|Drug name |	Date prescription was issued 	|ATC_code
-4192264 	| Amivantamab | 	2004-08-17 	| L01FX18
-4949601 	| Cisplatin 10mg/10ml solution for infusion vials | 	2020-11-12 
+  
+ParticipantID 	|Drug name |	Date prescription was issued 	|ATC_code |
+4192264 	| Amivantamab | 	2004-08-17 	| L01FX18 | 
+4949601 	| Cisplatin 10mg/10ml solution for infusion vials | 	2020-11-12 |
 
 
 
