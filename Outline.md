@@ -19,8 +19,12 @@
 
 Explore DPYD (and CYP2C8) variants that affect chemotherapy response for lung cancer patients (disease icd10 codes: C340,C341,C342,C343,C348,C349)
 
+##### Currently working on this:
+* Distribution of survival time after the diagnosis with one of the 6 icd10 codes.
+* e.g. *1/*1  (*1/*1+rs10509681) seems to have an overall higher survival expectancy after diagnosis for all of the diseases (and are not diagnosed with more than one lung cancer types)
+* e.g. We observe patterns in the lower boundaries of y axis (less days of survival after diagnosis) where genotypes like *4/*4 , *1/*2 that exhibit coexistance of multiple lung cancer types and lower survival rate (survival days < 2000)
+![image](https://github.com/user-attachments/assets/df341b3a-0fc6-470d-acf1-e7a027188565)
 
-![image](https://github.com/user-attachments/assets/eae26eb5-9778-49db-a7f8-270df2267d18)
 
 
 
