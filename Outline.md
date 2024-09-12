@@ -13,7 +13,7 @@
 
 ![image](https://github.com/user-attachments/assets/c53ff2cd-0b7f-4584-b069-14a000695009)
 
-# Potential Thesis Subject: 
+**# Potential Thesis Subject:** 
 
 ### Publication based idea : https://pubmed.ncbi.nlm.nih.gov/37372990/
 
@@ -26,11 +26,12 @@ Explore DPYD (and CYP2C8) variants that affect chemotherapy response for lung ca
 ![image](https://github.com/user-attachments/assets/df341b3a-0fc6-470d-acf1-e7a027188565)
 
 
-**TODO**: 
+### **TODO**: 
 * Cluster genotypes both for CYP2C8 and DPYD and observe patterns in the survival rate
 * Significant differences among genotypes:
   * Check if the mortality rate for certain genotypes is due to their inability to metabolize certain cancer treatments 
   * Check whether there are some treatments(/or dosages) that work better for certain genotypes - Risk ndex / Treatment recommendation based on genotype clusters
+* Results validation : Compare genotypes of interest among healthy and non-healthy participants (for diseases of interest)
 
 ### Important datasets
 
@@ -62,4 +63,5 @@ ParticipantID 	|Drug name |	Date prescription was issued 	|ATC_code |
 * match cancer related drugs with atc codes and filter drug dataset https://www.anticancerfund.org/database-cancer-drugs
 * Check other Malignant neoplasms of respiratory and intrathoracic organs C30-C39 https://www.icd10data.com/ICD10CM/Codes/C00-D49/C30-C39
 
-  
+
+
