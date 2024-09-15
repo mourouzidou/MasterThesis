@@ -20,3 +20,9 @@ https://www.pharmgkb.org/variant/PA166153874/variantAnnotation
 
 * 191 patients/2381 (total lung cancer patients) received cancer related drug `filtered_cancer_drugs.csv`
 * 24 cancer related drugs in total 
+
+
+
+## Generate violin plot for genotypes of interest
+* Filter samples that have taken at least one cancer drug and color each genotype by drug
+![image](https://github.com/user-attachments/assets/d1bc6bac-13b4-4fdf-9f51-7a5fa7e6e221)
