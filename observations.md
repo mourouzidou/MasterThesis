@@ -27,3 +27,6 @@ https://www.pharmgkb.org/variant/PA166153874/variantAnnotation
 * Filter samples that have taken at least one cancer drug and color each genotype by drug
 * Normalize frequencies
 ![image](https://github.com/user-attachments/assets/d1bc6bac-13b4-4fdf-9f51-7a5fa7e6e221)
+
+
+![image](https://github.com/user-attachments/assets/6d21ba9f-5872-4647-8ecd-bc09d29480c9)
