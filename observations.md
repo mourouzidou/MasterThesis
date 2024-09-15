@@ -15,3 +15,8 @@ https://www.pharmgkb.org/variant/PA166153874/variantAnnotation
 
 ![image](https://github.com/user-attachments/assets/e293193e-510e-4c5a-be85-43bc8f202116)
 
+
+
+
+* 191 patients/2381 (total lung cancer patients) received cancer related drug `filtered_cancer_drugs.csv`
+* 24 cancer related drugs in total 
