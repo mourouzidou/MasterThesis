@@ -30,3 +30,5 @@ https://www.pharmgkb.org/variant/PA166153874/variantAnnotation
 
 
 ![image](https://github.com/user-attachments/assets/6d21ba9f-5872-4647-8ecd-bc09d29480c9)
+
+![image](https://github.com/user-attachments/assets/24a55093-75f2-47c0-9f53-dce9d456a4c1)
