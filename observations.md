@@ -19,8 +19,7 @@ https://www.pharmgkb.org/variant/PA166153874/variantAnnotation
 
 
 * 191 patients/2381 (total lung cancer patients) received cancer related drug `filtered_cancer_drugs.csv`
-* 24 cancer related drugs in total 
-
+* 24 cancer related drugs in total
 
 
 ## Generate violin plot for genotypes of interest
@@ -32,3 +31,14 @@ https://www.pharmgkb.org/variant/PA166153874/variantAnnotation
 ![image](https://github.com/user-attachments/assets/6d21ba9f-5872-4647-8ecd-bc09d29480c9)
 
 ![image](https://github.com/user-attachments/assets/24a55093-75f2-47c0-9f53-dce9d456a4c1)
+
+
+## CYP2C8 *rs10509681 , unknown genotypes : higher survival comparing to *1/*1 ?
+  * test significance, impact of rs10509681
+![image](https://github.com/user-attachments/assets/88d93376-ceb8-46de-a609-03e73f0022f8)
+
+
+
+
+
+
