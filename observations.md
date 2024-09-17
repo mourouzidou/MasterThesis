@@ -37,6 +37,9 @@ https://www.pharmgkb.org/variant/PA166153874/variantAnnotation
   * test significance, impact of rs10509681
 ![image](https://github.com/user-attachments/assets/88d93376-ceb8-46de-a609-03e73f0022f8)
 
+## Statistical_summary_DPYD table
+_generate a statistic summary table to store the p-values of different survival periods among different genotypes given a certain drug each time_
+
 
 
 
