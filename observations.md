@@ -39,6 +39,12 @@ https://www.pharmgkb.org/variant/PA166153874/variantAnnotation
 
 ## Statistical_summary_DPYD table
 _generate a statistic summary table to store the p-values of different survival periods among different genotypes given a certain drug each time_
+| Drug (ATC Code) | Genotype 1  | Genotype 2  |   Mean Difference |        p-value | Significant   |
+|:----------------|:------------|:------------|------------------:|---------------:|:--------------|
+| L02BA01         | *5/*9       | *9/*rs2297595 |       -245.765676 |  7.12727e-06   | True          |
+| L02BA01         | *5/*9       | Other       |     -1676.866142   |  1.94308e-13   | True          |
+| L02BA01         | *5/*9       | *1/*5       |        -70.343752 |  0.155492      | False         |
+
 
 
 
