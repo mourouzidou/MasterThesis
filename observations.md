@@ -55,5 +55,10 @@ L02BG Aromatase inhibitors
 
 
 
+ ## *9/*rs17376848 is significantly distant from *9/*rs17376848+rs1801265 in terms of survival rates after taking the drug L02BA01
+ Is rs1801265 a key factor?
+ 
+![image](https://github.com/user-attachments/assets/9ede6505-0b35-40e5-a914-b763cfff4480)
 
-
+![image](https://github.com/user-attachments/assets/2f7ffefe-3aeb-414c-8f8d-cdea7787a91b)
+https://www.ensembl.org/Homo_sapiens/Tools/VEP/Results?tl=fbEIoq70y6CfJDRI-10419986
