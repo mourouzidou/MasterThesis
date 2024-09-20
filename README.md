@@ -65,8 +65,15 @@ ParticipantID 	| ICD10|	Diagnosis_Date |
 | 4192264       |*1/*1 | *38/*38 | *1/*1| Δdate(Death-Diagnosis)=1000| Δdate(Death-Diagnosis)=100 | NA| Δdate(Death-LastPrescription)= 800|Δdate(Death-LastPrescription)= 100 | 
 
 
+ OR
+ selectone specific icd10 code vs related drugs 
 
+ * Search for correlation among ATC codes / Genotypes - Significant survival pattern given a certain cancer related icd10
+ * Compare the significant pairs ATC/Genotypes between two groups:
+     * Group A: Participants having the disease but did not take any cancer related drug
+     * Group B: Participants having the disease and receivd at least one cancer related drug
 
+![image](https://github.com/user-attachments/assets/21d219a4-f801-4c79-a549-7a6b6054eb89)
 
 
 
