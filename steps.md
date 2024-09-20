@@ -1,6 +1,85 @@
 ####  Filter cancer drugs file https://sciencedata.anticancerfund.org/pages/cancerdrugsdb.txt to include:
-  Only cancer related drugs that target to at least one of our available genes 
-    
+  Only cancer related drugs that target to at least one of our available genes   : 78 drugs
+  
     gene_list = ["CFTR","CYP2C19","CYP2C8","CYP2C9","CYP2D6","CYP3A4","CYP3A5","DPYD", "SLCO1B1","TPMT","UGT1A1","VKORC1","NAT2"]
 
   Input: "cancer type keyword" to search in the indications column
+
+    Acalabrutinib
+Alectinib
+Amsacrine
+Belinostat
+Binimetinib
+Bosutinib
+Busulfan
+Cabazitaxel
+Capecitabine
+Carboplatin
+Carmustine
+Ceritinib
+Cisplatin
+Cytarabine
+Dacarbazine
+Dactinomycin
+Daunorubicin
+Dexamethasone
+Docetaxel
+Doxorubicin
+Doxorubicin Liposome
+Epirubicin
+Erdafitinib
+Eribulin
+Erlotinib
+Etoposide
+Fludarabine
+Fluorouracil
+Flutamide
+Gefitinib
+Gemcitabine
+Gemtuzumab Ozogamicin
+Goserelin
+Hydroxyurea
+Ibrutinib
+Idarubicin
+Imatinib
+Irinotecan
+Irinotecan Liposome
+Ixabepilone
+Lapatinib
+Lenvatinib
+Letrozole
+Leuprolide
+Medroxyprogesterone
+Melphalan
+Melphalan Flufenamide
+Methotrexate
+Mitomycin
+Mitoxantrone
+Nab-Paclitaxel
+Nilotinib
+Nilutamide
+Oxaliplatin
+Paclitaxel
+Pazopanib
+Pegaspargase
+Prednisolone
+Prednisone
+Quizartinib
+Ripretinib
+Rucaparib
+Ruxolitinib
+Sacituzumab Govitecan
+Sorafenib
+Streptozocin
+Sunitinib
+Tamoxifen
+Thalidomide
+Thioguanine
+Toremifene
+Tretinoin
+Vandetanib
+Vemurafenib
+Vinblastine
+Vincristine
+Vindesine
+Vorinostat
