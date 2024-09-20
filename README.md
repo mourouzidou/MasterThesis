@@ -1,3 +1,48 @@
+
+# TODO
+
+* Dataframe:
+  example `selected_keyword` : "lung"
+  filters  all participants with icd10 related to lung cancer
+  filters all cancer drugs related to lung cancer
+  
+
+| ParticipantID | Gene1  | Gene2 | GeneX | ICD10_A | ICD10_B | ICD10_C | ATC_A | ATC_B |
+|---------------|------- |-------|-------|---------|---------|---------|-------|-------|
+| 4192264       |*1/*1 | *38/*38 | *1/*1| Δdate(Death-Diagnosis)=1000| Δdate(Death-Diagnosis)=100 | NA| Δdate(Death-LastPrescription)= 800|Δdate(Death-LastPrescription)= 100 | 
+
+
+ OR
+ selectone specific icd10 code vs related drugs 
+
+ * Search for correlation among ATC codes / Genotypes - Significant survival pattern given a certain cancer related icd10
+ * Compare the significant pairs ATC/Genotypes between two groups:
+     * Group A: Participants having the disease but did not take any cancer related drug
+     * Group B: Participants having the disease and receivd at least one cancer related drug
+  
+
+ * Compare the significant survival period (either lower or higher) to the corresponding life expenctancy of this disease according to the literature
+ * Retrieve info for the significant genotype(s) and their association to this drug (PharmGKB)
+
+**SCENARIO 1**
+* Make meaningful assumptions : e.g. how variation V affects the response to drug D according to its location/type ?
+   
+ **SCENARIO 2**
+ * Build model on Drug/Genotype/Life Expectancy data and generate a risk index for each genotype associated to a drug
+   
+
+![image](https://github.com/user-attachments/assets/21d219a4-f801-4c79-a549-7a6b6054eb89)
+
+
+
+
+
+
+
+
+
+
+
 # Genomic Data : 
   * filter hwe, phase, star allele calling:
  final:
@@ -51,40 +96,6 @@ ParticipantID 	| ICD10|	Diagnosis_Date |
 4192264 	| C34.2 | 	2004-08-17 	
 4949601 	| D38.1 10mg/10ml solution for infusion vials | 	2020-11-12 
 
-
-# TODO
-
-* Dataframe:
-  example `selected_keyword` : "lung"
-  filters  all participants with icd10 related to lung cancer
-  filters all cancer drugs related to lung cancer
-  
-
-| ParticipantID | Gene1  | Gene2 | GeneX | ICD10_A | ICD10_B | ICD10_C | ATC_A | ATC_B |
-|---------------|------- |-------|-------|---------|---------|---------|-------|-------|
-| 4192264       |*1/*1 | *38/*38 | *1/*1| Δdate(Death-Diagnosis)=1000| Δdate(Death-Diagnosis)=100 | NA| Δdate(Death-LastPrescription)= 800|Δdate(Death-LastPrescription)= 100 | 
-
-
- OR
- selectone specific icd10 code vs related drugs 
-
- * Search for correlation among ATC codes / Genotypes - Significant survival pattern given a certain cancer related icd10
- * Compare the significant pairs ATC/Genotypes between two groups:
-     * Group A: Participants having the disease but did not take any cancer related drug
-     * Group B: Participants having the disease and receivd at least one cancer related drug
-  
-
- * Compare the significant survival period (either lower or higher) to the corresponding life expenctancy of this disease according to the literature
- * Retrieve info for the significant genotype(s) and their association to this drug (PharmGKB)
-
-**SCENARIO 1**
-* Make meaningful assumptions : e.g. how variation V affects the response to drug D according to its location/type ?
-   
- **SCENARIO 2**
- * Build model on Drug/Genotype/Life Expectancy data and generate a risk index for each genotype associated to a drug
-   
-
-![image](https://github.com/user-attachments/assets/21d219a4-f801-4c79-a549-7a6b6054eb89)
 
 
 
