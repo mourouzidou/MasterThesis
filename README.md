@@ -44,3 +44,12 @@ Cancer related icd10 codes start with either
 Build API endpoint where we can set a keyword as an input and will return icd10 codes that describe a specific type (keyword) of cancer:
   * Example : `input` : "lung", `output` : C46.50, C46.51, C78.01, C34.2, D86.0 ...
 
+
+
+ParticipantID 	| ICD10|	Diagnosis_Date |
+| -----| ----| ----|
+4192264 	| C34.2 | 	2004-08-17 	
+4949601 	| D38.1 10mg/10ml solution for infusion vials | 	2020-11-12 
+
+
+
