@@ -29,7 +29,8 @@
    
  **SCENARIO 2**
  * Build model on Drug/Genotype/Life Expectancy data and generate a risk index for each genotype associated to a drug
-   
+
+   sort and color by genotype
 
 ![image](https://github.com/user-attachments/assets/21d219a4-f801-4c79-a549-7a6b6054eb89)
 
