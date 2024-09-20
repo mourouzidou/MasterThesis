@@ -9,7 +9,7 @@
 
 
 # Demographic
-Smoking_status, BMI, Sex, Birth_Year, ** Death_Date, Death_Cause**
+Smoking_status, BMI, Sex, Birth_Year, **Death_Date, Death_Cause**
 
 
 # Prescriptions
