@@ -62,3 +62,8 @@ L02BG Aromatase inhibitors
 
 ![image](https://github.com/user-attachments/assets/2f7ffefe-3aeb-414c-8f8d-cdea7787a91b)
 https://www.ensembl.org/Homo_sapiens/Tools/VEP/Results?tl=fbEIoq70y6CfJDRI-10419986
+
+
+![image](https://github.com/user-attachments/assets/bd756f79-a6d0-4e42-a5a6-03fa6ce73461)
+
+
