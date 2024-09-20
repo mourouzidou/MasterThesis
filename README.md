@@ -61,7 +61,7 @@ ParticipantID 	| ICD10|	Diagnosis_Date |
   
 
 | ParticipantID | Gene1  | Gene2 | GeneX | ICD10_A | ICD10_B | ICD10_C | ATC_A | ATC_B |
-|---------------|-------|-|--------|--|---|---|---|---|---|---|---|---|--|-|--|
+|---------------|-------|-|--------|--|---|---|---|
 | 4192264       |*1/*1 | *38/*38 | *1/*1| Δdate(Death-Diagnosis)=1000| Δdate(Death-Diagnosis)=100 | NA| Δdate(Death-LastPrescription)= 800|Δdate(Death-LastPrescription)= 100 | 
 
 
