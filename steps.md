@@ -16,4 +16,15 @@
 
   Input: "cancer type keyword" to search in the indications column
 
+Cancer related icd10 codes start with either 
+  * C : codes cover malignant neoplasms (cancers).
+  * D : codes include benign neoplasms, in situ neoplasms, and some diseases that can evolve into cancer (e.g., precancerous conditions).
+
+
+Build API endpoint where we can set a keyword as an input and will return icd10 codes that describe a specific type (keyword) of cancer:
+  * Example : `input` : "lung", `output` : C46.50, C46.51, C78.01, C34.2, D86.0 ...
+
+
+
+
     
