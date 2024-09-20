@@ -11,8 +11,20 @@
 # Demographic
 Smoking_status, BMI, Sex, Birth_Year, **Death_Date, Death_Cause**
 
-
 # Prescriptions
 
+ParticipantID 	|Drug name |	Date prescription was issued 	|ATC_code |
+| -----| ----| ----|---|
+4192264 	| Amivantamab | 	2004-08-17 	| L01FX18 | 
+4949601 	| Cisplatin 10mg/10ml solution for infusion vials | 	2020-11-12 | L01XA01 |
+
+Filter cancer drugs file https://sciencedata.anticancerfund.org/pages/cancerdrugsdb.txt to include:
+  Only cancer related drugs that target to at least one of our available genes  
+
+  Drugs (78 in total, 26 in our data)
+  
+    ['Acalabrutinib', 'Alectinib', 'Amsacrine', 'Belinostat', 'Binimetinib', 'Bosutinib', 'Busulfan', 'Cabazitaxel', 'Capecitabine', 'Carboplatin', 'Carmustine', 'Ceritinib', 'Cisplatin', 'Cytarabine', 'Dacarbazine', 'Dactinomycin', 'Daunorubicin', 'Dexamethasone', 'Docetaxel', 'Doxorubicin', 'Doxorubicin Liposome', 'Epirubicin', 'Erdafitinib', 'Eribulin', 'Erlotinib', 'Etoposide', 'Fludarabine', 'Fluorouracil', 'Flutamide', 'Gefitinib', 'Gemcitabine', 'Gemtuzumab Ozogamicin', 'Goserelin', 'Hydroxyurea', 'Ibrutinib', 'Idarubicin', 'Imatinib', 'Irinotecan', 'Irinotecan Liposome', 'Ixabepilone', 'Lapatinib', 'Lenvatinib', 'Letrozole', 'Leuprolide', 'Medroxyprogesterone', 'Melphalan', 'Melphalan Flufenamide', 'Methotrexate', 'Mitomycin', 'Mitoxantrone', 'Nab-Paclitaxel', 'Nilotinib', 'Nilutamide', 'Oxaliplatin', 'Paclitaxel', 'Pazopanib', 'Pegaspargase', 'Prednisolone', 'Prednisone', 'Quizartinib', 'Ripretinib', 'Rucaparib', 'Ruxolitinib', 'Sacituzumab Govitecan', 'Sorafenib', 'Streptozocin', 'Sunitinib', 'Tamoxifen', 'Thalidomide', 'Thioguanine', 'Toremifene', 'Tretinoin', 'Vandetanib', 'Vemurafenib', 'Vinblastine', 'Vincristine', 'Vindesine', 'Vorinostat']
+
+* Filter: 
 
 # Clinical - Diagnosis
