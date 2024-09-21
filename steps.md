@@ -14,7 +14,8 @@
   
   #### Lung cancer case
   keyword = "lung"
-  Aiming to further explore the potential association among the platin based chemotherapy treatments on Non Small Cell Lung Cancer (NSCLC) patients and certain    variants of DPYD gene [DOI:10.3390/ijms24129843] we decided to follow this inspiration and conduct some exploratory analysis on UKBioBank data. Thus, we took advantage of the exploratory tool we built for the scope of this project. The keyword "lung" was set as an input, expecting to retrieve some brief information related to our data (_Table 1.1_):
+  
+Aiming to further explore the potential association among the platin based chemotherapy treatments on Non Small Cell Lung Cancer (NSCLC) patients and certain    variants of DPYD gene [DOI:10.3390/ijms24129843] we decided to follow this inspiration and conduct some exploratory analysis on UKBioBank data. Thus, we took advantage of the exploratory tool we built for the scope of this project. The keyword "lung" was set as an input, expecting to retrieve some brief information related to our data (_Table 1.1_):
 
    #Participants diagnosed with any type of lung cancer or benign precancerous states = 4333
    #Participants diagnosed with any type of lung cancer or benign precancerous states AND took at least one lung cancer related drug = 
