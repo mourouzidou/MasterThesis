@@ -1,3 +1,24 @@
+
+* Lymph keyword
+Significant Survival Difference for UGT1A1 Genotypes and L02BG04 Drug:
+
+    The Kruskal-Wallis test for the UGT1A1 gene and the L02BG04 drug shows a significant p-value of 0.0022.
+    This suggests that there is a statistically significant difference in survival days between different UGT1A1 genotypes when treated with the L02BG04 drug
+
+
+
+
+
+
+
+.
+
+
+
+
+
+.
+
 ![image](https://github.com/user-attachments/assets/8712e406-799f-42ab-89ec-b08f86673fe1)
 
 
