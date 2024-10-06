@@ -5,7 +5,16 @@ Significant Survival Difference for UGT1A1 Genotypes and L02BG04 Drug:
     The Kruskal-Wallis test for the UGT1A1 gene and the L02BG04 drug shows a significant p-value of 0.0022.
     This suggests that there is a statistically significant difference in survival days between different UGT1A1 genotypes when treated with the L02BG04 drug
 
+    ![image](https://github.com/user-attachments/assets/d32df9c0-97dc-47e5-8c3f-c54fa44dff6c)
+  ![image](https://github.com/user-attachments/assets/13a5139d-ee34-4976-b460-0d53aa0e4375)
 
+The Kruskal-Wallis test for Age_of_Diagnosis also shows a significant p-value of 0.0021. This means that the age at which participants were diagnosed differs significantly between different UGT1A1 genotypes for patients treated with L02BG04.
+This could imply that patients with certain UGT1A1 genotypes may be diagnosed earlier or later compared to others.
+
+For patients that have taken L02BG04(letrozole) UGT1A1*80/*93 seems to have greater survival rates (approximately 3 years more) than *1/*1.
+We further checked other demographic factors that could potenitally contribute to this deviation such as age of diagnosis, bmi, smoking and alcohol status, and performed Kruskal-Wallis (for continuous) and Chi-Square test (for categorical data). It appeared the only parameter that significantly contributed to this deviation is age of diagnosis. More specifically genotypes with *80/*93 variations seemed to have a lower median age of diagnosis at 58 years old, compared to the wild type *1/*1 that had a median age of diagnosis at 66 years old. This leads us to investigate further two scenarios: 1) that patients with *80/93 for UGT1A1 gene that have taken letrozole better metabolize the drug - higher efficacy of letrozole is observed for *80/*93 patients compared to the wild type, 2) that patients with *80/*93 were diagnosed earlier than *1/*1 patients, and this led to a more immediate treatment which is more likely to be succesfull. 
+
+ ![image](https://github.com/user-attachments/assets/6ede6758-2927-4311-8ae5-9a08ae1f22d1)
 
 
 
