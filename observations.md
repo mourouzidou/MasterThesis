@@ -18,6 +18,7 @@ We further checked other demographic factors that could potenitally contribute t
 
 
 
+![image](https://github.com/user-attachments/assets/399285ac-5b80-4cf7-ae3c-2bb95f8f4cf9)
 
 
 .
@@ -95,5 +96,6 @@ https://www.ensembl.org/Homo_sapiens/Tools/VEP/Results?tl=fbEIoq70y6CfJDRI-10419
 
 
 ![image](https://github.com/user-attachments/assets/bd756f79-a6d0-4e42-a5a6-03fa6ce73461)
+![image](https://github.com/user-attachments/assets/8c1ad0bc-ab5d-4985-b635-1ac2733256e4)
 
 
