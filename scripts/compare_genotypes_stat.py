@@ -276,5 +276,4 @@ def run_analysis(keyword, p_value_threshold=0.05, min_samples_per_genotype=5, dr
 
 import numpy as np
 
-for i in range(7):
-    run_analysis('sarcoma', p_value_threshold=0.05, min_samples_per_genotype=10, drug_prefix_length=i)
+run_analysis('sarcoma', p_value_threshold=0.05, min_samples_per_genotype=10, drug_prefix_length=7)
