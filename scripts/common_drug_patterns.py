@@ -2,9 +2,14 @@ import matplotlib.pyplot as plt
 from plotly.subplots import make_subplots
 import pandas as pd
 import plotly.graph_objects as go
+import matplotlib.pyplot as plt
+from plotly.subplots import make_subplots
+import pandas as pd
+import plotly.graph_objects as go
+
 
 def plot_genotype_heatmaps(prescriptions_genotype1, prescriptions_genotype2, gene, genotype1, genotype2, drug,
-                           top_atc_codes, max_periods, period_length_days):
+                           top_atc_codes, max_periods, period_length_days, diff_threshold=0.1):
     fig = make_subplots(rows=1, cols=3, subplot_titles=(
         f'{gene} - {genotype1}', f'{gene} - {genotype2}', 'Difference'))
 
@@ -44,15 +49,19 @@ def plot_genotype_heatmaps(prescriptions_genotype1, prescriptions_genotype2, gen
     # Normalize the difference by the total number of participants for both genotypes
     pivot_normalized_difference = pivot_difference / total_samples
 
+    # Apply a threshold to filter out small differences
+    pivot_normalized_difference = pivot_normalized_difference.applymap(
+        lambda x: x if abs(x) >= diff_threshold else 0)
+
     # Add the difference heatmap to the figure
     fig.add_trace(
         go.Heatmap(
             z=pivot_normalized_difference.T.values,
             x=pivot_normalized_difference.index,
             y=pivot_normalized_difference.columns,
-            colorscale='PuOr',
-            zmin=-1,
-            zmax=1,
+            colorscale='RdBu',  # A colormap that highlights positive and negative differences
+            zmin=-0.5,  # Adjust this range to emphasize larger differences
+            zmax=0.5,
             colorbar=dict(title='Normalized Difference'),
         ),
         row=1, col=3
@@ -124,22 +133,25 @@ def plot_heatmap_for_genotype(prescriptions_genotype, fig, top_atc_codes, max_pe
     )
 
     return pivot_genotype
-
-
 def dynamic_plot_genotypes(significant_pairs, genotype_survival, prescriptions, patients_cancer_prescriptions,
-                           max_periods=40, period_length_days=180):
+                           max_periods=40, period_length_days=180, drug_prefix_length=5):
     # Dictionary to store the results for each gene-drug-genotype combination
     results = {}
 
     for idx, row in significant_pairs.iterrows():
         gene = row['Gene']
-        drug = row['Drug']
+        drug_prefix = row['Drug'][:drug_prefix_length]  # Use the drug prefix based on the input length
+
         genotype1 = row['Genotype1']
         genotype2 = row['Genotype2']
 
-        # Get participants who took the relevant drug
-        participants_with_drug = patients_cancer_prescriptions[patients_cancer_prescriptions[drug].notna()][
-            'ParticipantID'].unique()
+        # Get participants who took the relevant drug (by prefix)
+        drug_columns = [col for col in patients_cancer_prescriptions.columns if col.startswith(drug_prefix)]
+        if not drug_columns:
+            print(f"No columns found with prefix {drug_prefix}")
+            continue
+
+        participants_with_drug = patients_cancer_prescriptions[patients_cancer_prescriptions[drug_columns].notna().any(axis=1)]['ParticipantID'].unique()
         drug_df = genotype_survival[genotype_survival['ParticipantID'].isin(participants_with_drug.tolist())]
 
         # Filter by the relevant genotypes for the current gene
@@ -152,7 +164,7 @@ def dynamic_plot_genotypes(significant_pairs, genotype_survival, prescriptions, 
         # Prepare prescription data for filtered participants
         prescriptions_filtered = prescriptions[
             (prescriptions['Participant ID'].isin(filtered_drug_df['ParticipantID'])) &
-            (prescriptions['atc_code'] == drug)
+            (prescriptions['atc_code'].str.startswith(drug_prefix))
         ]
 
         # Find the first prescription date for each participant
@@ -167,8 +179,8 @@ def dynamic_plot_genotypes(significant_pairs, genotype_survival, prescriptions, 
         filtered_participants.drop(columns='Participant ID', inplace=True)
 
         # Store data per gene and genotype for further use without overwriting
-        results[f"{gene}_{genotype1}_{drug}"] = filtered_participants[filtered_participants[gene] == genotype1].copy()
-        results[f"{gene}_{genotype2}_{drug}"] = filtered_participants[filtered_participants[gene] == genotype2].copy()
+        results[f"{gene}_{genotype1}_{drug_prefix}"] = filtered_participants[filtered_participants[gene] == genotype1].copy()
+        results[f"{gene}_{genotype2}_{drug_prefix}"] = filtered_participants[filtered_participants[gene] == genotype2].copy()
 
         # Continue with prescription data
         prescriptions_with_dates = prescriptions.merge(
@@ -198,9 +210,10 @@ def dynamic_plot_genotypes(significant_pairs, genotype_survival, prescriptions, 
         prescriptions_genotype2 = prescriptions_after_first[
             prescriptions_after_first['Participant ID'].isin(participants_genotype2)].copy()
 
-        plot_genotype_heatmaps(prescriptions_genotype1, prescriptions_genotype2, gene, genotype1, genotype2, drug,
+        plot_genotype_heatmaps(prescriptions_genotype1, prescriptions_genotype2, gene, genotype1, genotype2, drug_prefix,
                                top_atc_codes, max_periods, period_length_days)
 
+    return results
 
 def main(keyword, exclusion_suffix='_all_participants', max_periods=40, months_per_period=6):
     period_length_days = months_per_period * 30  # Convert months to days (e.g., 6 months = 180 days)
@@ -216,5 +229,5 @@ def main(keyword, exclusion_suffix='_all_participants', max_periods=40, months_p
 
 # Call the main function
 if __name__ == "__main__":
-    keyword = "respiratory"
+    keyword = "skin"
     main(keyword, months_per_period=12)
