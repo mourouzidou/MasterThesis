@@ -6,6 +6,79 @@ from scipy.stats import mannwhitneyu
 import seaborn as sns
 import numpy as np
 
+
+
+def plot_drug_usage(ax, df, title):
+    drug_usage = df.drop(columns=['ParticipantID', 'Date_of_Death']).count()
+    drug_usage.plot(kind='bar', ax=ax, color='lightcoral', edgecolor='black')
+    ax.set_title(f'Drug Usage Distribution - {title}')
+    ax.set_ylabel('Number of Participants')
+    ax.set_xlabel('Drug (ATC Code)')
+    ax.tick_params(axis='x', rotation=45)
+
+
+# Function to calculate the median survival for treated and untreated groups
+def calculate_median_survival(df):
+    treated_median = df[df['Group'] == 1]['max_survival_days'].median()
+    untreated_median = df[df['Group'] == 0]['max_survival_days'].median()
+    return treated_median, untreated_median
+
+
+# Function to perform the log-rank test
+def perform_logrank_test(df):
+    treated = df[df['Group'] == 1]
+    untreated = df[df['Group'] == 0]
+    results = logrank_test(treated['max_survival_days'], untreated['max_survival_days'],
+                           event_observed_A=(treated['max_survival_days'] > 0),
+                           event_observed_B=(untreated['max_survival_days'] > 0))
+    return results.p_value
+
+
+# Function to plot Kaplan-Meier survival curves and statistics
+def plot_kaplan_meier_with_statistics(ax, df):
+    kmf = KaplanMeierFitter()
+
+    treated = df[df['Group'] == 1]
+    untreated = df[df['Group'] == 0]
+
+    # Fit and plot survival for treated group
+    kmf.fit(treated['max_survival_days'], event_observed=(treated['max_survival_days'] > 0), label='Treated')
+    kmf.plot_survival_function(ax=ax)
+
+    # Fit and plot survival for untreated group
+    kmf.fit(untreated['max_survival_days'], event_observed=(untreated['max_survival_days'] > 0), label='Untreated')
+    kmf.plot_survival_function(ax=ax)
+
+    # Calculate statistics
+    treated_median, untreated_median = calculate_median_survival(df)
+    p_value = perform_logrank_test(df)
+
+    # Annotate the plot with statistics
+    ax.set_title('Kaplan-Meier Survival Curves')
+    ax.set_ylabel('Survival Probability')
+    ax.set_xlabel('Days')
+    ax.text(0.6, 0.2, f"Treated Median: {treated_median} days", transform=ax.transAxes, fontsize=10)
+    ax.text(0.6, 0.15, f"Untreated Median: {untreated_median} days", transform=ax.transAxes, fontsize=10)
+    ax.text(0.6, 0.1, f"Log-rank p-value: {p_value:.4f}", transform=ax.transAxes, fontsize=10)
+
+
+def plot_survival_distribution(ax, df):
+    ax.hist(df['max_survival_days'], bins=60, color='skyblue', edgecolor='black')
+    ax.set_title('Distribution of Max Survival Days')
+    ax.set_xlabel('Max Survival Days')
+    ax.set_ylabel('Number of Participants')
+    ax.grid(True)
+def plot_summary(genotype_survival, general_prescription_survival, specific_prescription_survival):
+    fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(14, 6))
+    plot_drug_usage(axs[0,1], general_prescription_survival, title="General Cancer Drugs")
+    plot_drug_usage(axs[1, 1],specific_prescription_survival , title="Specific Cancer Drugs")
+    plot_survival_distribution(axs[1, 0], genotype_survival)
+    plot_kaplan_meier_with_statistics(axs[0,0], genotype_survival)
+    plt.tight_layout()
+    plt.show()
+
+
+
 def calculate_median_survival(df):
     treated_median = df[df['Group'] == 1]['max_survival_days'].median()
     untreated_median = df[df['Group'] == 0]['max_survival_days'].median()
@@ -169,9 +242,7 @@ def get_took_significant_and_took_other(genotypes_df, significant_df, prescripti
     untreated_ids = genotypes_df[genotypes_df['Group'] == 0]['ParticipantID'].tolist()
 
     return list(took_significant), list(took_other), untreated_ids
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+
 def create_combined_df_for_plotting(significant_df, genotype_df, prescriptions_df, drug_prefix_length):
     combined_df_list = []
 
@@ -255,16 +326,18 @@ def plot_gene_survival_by_genotype_and_drugs(significant_df, genotype_df, prescr
 
 
 
-def run_analysis(keyword, p_value_threshold=0.05, min_samples_per_genotype=5, drug_prefix_length=2):
-    # Pass paths instead of reading in advance
-    diagnosis_path = f'{keyword}/{keyword}_cancer_diagnosis.csv'
-    genotype_path = f'{keyword}/{keyword}_genotype_survival_all_participants.csv'
-    prescriptions_path = f'{keyword}/{keyword}_general_cancer_drugs_survival_all_participants.csv'
+def run_analysis(keyword, p_value_threshold=0.05, min_samples_per_genotype=5, drug_prefix_length=2, exclusion_suffix="all_participants"):
 
-    significant = analyze_genotype_drug_pairs_wilcoxon(diagnosis_path, genotype_path, prescriptions_path, keyword, p_value_threshold, min_samples_per_genotype, drug_prefix_length)
+    diagnosis_path = f'{keyword}/{keyword}_cancer_diagnosis.csv'
+    genotype_path = f'{keyword}/{keyword}_genotype_survival_{exclusion_suffix}.csv'
+    prescriptions_path = f'{keyword}/{keyword}_general_cancer_drugs_survival_{exclusion_suffix}.csv'
+    specific_prescriptions = pd.read_csv(f"{keyword}/{keyword}_specific_prescription_survival_{exclusion_suffix}.csv")
 
     genotype_df = pd.read_csv(genotype_path)
     prescriptions_df = pd.read_csv(prescriptions_path)
+    plot_summary(genotype_df, prescriptions_df, specific_prescriptions)
+    significant = analyze_genotype_drug_pairs_wilcoxon(diagnosis_path, genotype_path, prescriptions_path, keyword,
+                                                       p_value_threshold, min_samples_per_genotype, drug_prefix_length)
 
     took_significant, took_other, untreated = get_took_significant_and_took_other(genotype_df, significant, prescriptions_df, drug_prefix_length)
 
@@ -274,6 +347,5 @@ def run_analysis(keyword, p_value_threshold=0.05, min_samples_per_genotype=5, dr
     print("Untreated:", untreated)
     plot_gene_survival_by_genotype_and_drugs(significant, genotype_df, prescriptions_df, drug_prefix_length)
 
-import numpy as np
 
-run_analysis('sarcoma', p_value_threshold=0.05, min_samples_per_genotype=10, drug_prefix_length=7)
+run_analysis('skin', p_value_threshold=0.05, min_samples_per_genotype=10, drug_prefix_length=7)
