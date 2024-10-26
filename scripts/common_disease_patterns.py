@@ -69,19 +69,6 @@ def compute_difference_heatmap(data1, data2, yaxis_range, total1, total2, month_
 
     return difference, aligned_intervals
 
-# Function to plot difference heatmap
-def plot_difference_heatmap(difference, intervals, yaxis_range, title, fig, row, col):
-    # Plot the difference heatmap
-    fig.add_trace(
-        go.Heatmap(z=difference, x=intervals,
-                   y=yaxis_range, colorscale='RdBu', zmid=0,  # 'RdBu' shows positive and negative values
-                   colorbar=dict(title='Difference in % of Participants')),
-        row=row, col=col
-    )
-    # Add title to the difference heatmap
-    fig.update_layout(title_text=title)
-
-
 # Function to plot genotype heatmaps and return figure and xaxis range
 # Function to plot genotype heatmaps with differences
 def plot_genotype_heatmaps_with_differences(diagnoses_genotype1, diagnoses_genotype2, diagnoses_genotype1_group0,
@@ -195,7 +182,6 @@ def plot_difference_heatmap(fig, difference, intervals, row, col, title):
     fig.update_yaxes(title_text=title, row=row, col=col)
 
 
-# Main function to dynamically plot genotypes and their differences
 def dynamic_plot_genotypes_with_differences(significant_pairs, genotypes, prescriptions, diagnoses, max_months=240,
                                             month_interval=1, min_samples=10):
     # Filter Group 0 participants
@@ -207,10 +193,30 @@ def dynamic_plot_genotypes_with_differences(significant_pairs, genotypes, prescr
         genotype1 = row['Genotype1']
         genotype2 = row['Genotype2']
 
+        # Determine the length of the drug name to decide how to filter prescriptions
+        drug_length = len(drug)
+
+        # Adjust prescription filtering based on the drug length
+        if drug_length < len(prescriptions.columns[1]):  # If drug is a prefix
+            # Filter columns that start with the drug prefix
+            drug_columns = [col for col in prescriptions.columns if col.startswith(drug)]
+        else:
+            # Use the exact drug name as the column
+            drug_columns = [drug] if drug in prescriptions.columns else []
+
+        # Check if there are any matching columns
+        if not drug_columns:
+            print(f"No matching columns found for drug: {drug}")
+            continue
+
+        # Identify participants who took the relevant drug(s)
+        participants_with_drug = prescriptions[prescriptions[drug_columns].notna().any(axis=1)]['ParticipantID'].unique()
+
         # Filter participants by drug prescriptions and genotype
-        participants_with_drug = prescriptions[prescriptions[drug].notna()]['ParticipantID'].unique()
-        participants_genotype1 = genotypes[(genotypes['ParticipantID'].isin(participants_with_drug)) & (genotypes[gene] == genotype1)]['ParticipantID']
-        participants_genotype2 = genotypes[(genotypes['ParticipantID'].isin(participants_with_drug)) & (genotypes[gene] == genotype2)]['ParticipantID']
+        participants_genotype1 = genotypes[(genotypes['ParticipantID'].isin(participants_with_drug)) &
+                                           (genotypes[gene] == genotype1)]['ParticipantID']
+        participants_genotype2 = genotypes[(genotypes['ParticipantID'].isin(participants_with_drug)) &
+                                           (genotypes[gene] == genotype2)]['ParticipantID']
 
         # Filter control group (Group 0) participants based on genotype
         group0_genotype1 = group0_participants[group0_participants[gene] == genotype1]['ParticipantID']
@@ -228,8 +234,10 @@ def dynamic_plot_genotypes_with_differences(significant_pairs, genotypes, prescr
             continue
 
         # Calculate the number of months corresponding to the first diagnosis for each genotype group
-        first_diag_months_genotype1 = ((diagnoses_genotype1['date_first_diagnosis'] - diagnoses_genotype1['date_first_diagnosis']).dt.days / 30.44).fillna(0).round().astype(int).min()
-        first_diag_months_genotype2 = ((diagnoses_genotype2['date_first_diagnosis'] - diagnoses_genotype2['date_first_diagnosis']).dt.days / 30.44).fillna(0).round().astype(int).min()
+        first_diag_months_genotype1 = ((diagnoses_genotype1['date_first_diagnosis'] -
+                                        diagnoses_genotype1['date_first_diagnosis']).dt.days / 30.44).fillna(0).round().astype(int).min()
+        first_diag_months_genotype2 = ((diagnoses_genotype2['date_first_diagnosis'] -
+                                        diagnoses_genotype2['date_first_diagnosis']).dt.days / 30.44).fillna(0).round().astype(int).min()
 
         # Plot the heatmaps for both genotypes and their respective Group 0 controls with differences
         fig, xaxis_range = plot_genotype_heatmaps_with_differences(diagnoses_genotype1, diagnoses_genotype2,
@@ -240,21 +248,23 @@ def dynamic_plot_genotypes_with_differences(significant_pairs, genotypes, prescr
                                                                    month_interval, min_samples)
 
 
+
 # Main execution function
 def main(keyword, exclusion_suffix='_all_participants', max_months=240, month_interval=1, min_samples=10):
     all_diagnoses = pd.read_csv("diseases_mapped_all_participants.csv")
-    keyword_diagnoses = pd.read_csv(f"{keyword}_cancer_diagnosis.csv")
-    prescriptions = pd.read_csv(f"{keyword}_general_cancer_drugs_survival{exclusion_suffix}.csv")
-    genotypes = pd.read_csv(f"{keyword}_genotype_survival{exclusion_suffix}.csv")
-    significant_pairs = pd.read_csv(f"{keyword}_significant_genotype_pairs.csv")
+    keyword_diagnoses = pd.read_csv(f"{keyword}/{keyword}_cancer_diagnosis.csv")
+    prescriptions = pd.read_csv(f"{keyword}/{keyword}_general_cancer_drugs_survival{exclusion_suffix}.csv")
+    genotypes = pd.read_csv(f"{keyword}/{keyword}_genotype_survival{exclusion_suffix}.csv")
+    significant_pairs = pd.read_csv(f"{keyword}/{keyword}_significant_wilcoxon_genotype_drug_pairs.csv")
 
     keyword_diagnoses['date'] = pd.to_datetime(keyword_diagnoses['date'], errors='coerce')
     all_diagnoses['date'] = pd.to_datetime(all_diagnoses['date'], errors='coerce')
 
-    first_diagnosis_dates = keyword_diagnoses.groupby('eid').apply(lambda x: x.nsmallest(1, 'date')).reset_index(
+    first_diagnosis_dates = keyword_diagnoses.groupby('ParticipantID').apply(lambda x: x.nsmallest(1, 'date')).reset_index(
         drop=True)
-    first_diagnosis_dates = first_diagnosis_dates[['eid', 'date']]
-    merged_diagnoses = pd.merge(all_diagnoses, first_diagnosis_dates, on='eid', how='left',
+    first_diagnosis_dates = first_diagnosis_dates[['ParticipantID', 'date']]
+    print(all_diagnoses, first_diagnosis_dates)
+    merged_diagnoses = pd.merge(all_diagnoses, first_diagnosis_dates,left_on="eid", right_on='ParticipantID', how='left',
                                 suffixes=('', '_first_diagnosis'))
 
     # Filter out rows with missing 'date_first_diagnosis'
@@ -271,7 +281,7 @@ def main(keyword, exclusion_suffix='_all_participants', max_months=240, month_in
 
 # Run the script
 if __name__ == "__main__":
-    keyword = "lymph"
+    keyword = "skin"
     month_interval = 24
-    min_samples = 15
+    min_samples = 10
     main(keyword, max_months=400, month_interval=24, min_samples=min_samples)
