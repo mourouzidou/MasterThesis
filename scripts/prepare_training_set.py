@@ -16,21 +16,12 @@ def load_data(gene):
         axis=1
     )
 
-    # Keep relevant columns for demographic
     demographic_df = demographic_df[["ParticipantID", "Sex", "BMI", "age", "Ethnicity"]]
-
-    # Load diseases data
     diseases_df = pd.read_csv('diseases_mapped_all_participants.csv')
     diseases_df.rename(columns={'eid': 'ParticipantID'}, inplace=True)
-
-    # Load prescriptions data
     prescriptions_df = pd.read_csv('prescriptions_alldrugs_filtered_participants.csv')
-
-    # Load and filter phenotype data
     phenotype_df = pd.read_csv(f'{gene}_Diplotype_Phenotype_Table.csv')
     phenotype_df = phenotype_df[[f"{gene} Diplotype", 'Coded Diplotype/Phenotype Summary']]
-
-    # Filter phenotype_df to only include diplotypes available in genotypes_df for the specific gene
     available_diplotypes = genotypes_df[gene].unique()
     phenotype_df = phenotype_df[phenotype_df[f"{gene} Diplotype"].isin(available_diplotypes)]
 
@@ -70,19 +61,14 @@ def process_prescriptions(prescription_df):
 
 
 def merge_all_genes_with_phenotype(genotypes, demographic, diseases, prescriptions, genes):
-    # Merge genotypes with demographic data
     merged_df = genotypes.merge(demographic, on='ParticipantID', how='left')
 
     # Loop through each gene to merge phenotypes
     for gene in genes:
         _, _, _, phenotype_df, _ = load_data(gene)  # Only unpack the required phenotype_df
         merged_df = merge_genotype_with_phenotype(merged_df, gene, phenotype_df)
-
-    # Process diseases and merge into the final DataFrame
     disease_counts = process_diseases(diseases)
     merged_df = merged_df.merge(disease_counts, on='ParticipantID', how='left')
-
-    # Process prescriptions and merge into the final DataFrame
     prescription_counts = process_prescriptions(prescriptions)
     merged_df = merged_df.merge(prescription_counts, left_on='ParticipantID', right_on='Participant ID', how='left')
 
