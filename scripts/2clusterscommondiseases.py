@@ -318,14 +318,9 @@ from plotly.subplots import make_subplots
 import pandas as pd
 import plotly.graph_objects as go
 
-
-# Function to identify and retrieve patients with specific disease class and from specific cluster
 def retrieve_patients_with_disease_and_cluster(diagnoses, cluster_df, disease_class, cluster_label):
-    # Filter diagnoses for patients in the specified disease class and cluster
     diagnoses_disease_class = diagnoses[diagnoses['Disease_Index'] == disease_class]
     patients_cluster = cluster_df[cluster_df['genotype_cluster'] == cluster_label]
-
-    # Merge to find patients with the specified disease class in the cluster
     merged_patients = pd.merge(diagnoses_disease_class, patients_cluster, left_on='eid', right_on='ParticipantID')
     return merged_patients['eid'].unique()
 
@@ -335,7 +330,6 @@ def plot_genotype_heatmaps(prescriptions_cluster1, prescriptions_cluster2, clust
                            top_atc_codes, max_months):
     fig = make_subplots(rows=1, cols=2, subplot_titles=(f'Cluster {cluster1_label}', f'Cluster {cluster2_label}'))
 
-    # Calculate months since first prescription for both clusters
     prescriptions_cluster1['Months Since First Prescription'] = (
                                                                         pd.to_datetime(prescriptions_cluster1[
                                                                                            'Date prescription was issued']) -
@@ -356,9 +350,6 @@ def plot_genotype_heatmaps(prescriptions_cluster1, prescriptions_cluster2, clust
 
     # Plot heatmaps for drug prescription patterns
     plot_heatmap_for_genotype(prescriptions_cluster1, fig, top_atc_codes, max_months, row=1, col=1)
-    plot_heatmap_for_genotype(prescriptions_cluster2, fig, top_atc_codes, max_months, row=1, col=2)
-
-    # Update layout and show the plot
     fig.update_layout(
         title=f'Drug Prescription Patterns Over Time for Cluster {cluster1_label} vs Cluster {cluster2_label} - Drug: {drug}',
         xaxis_title='Months Since First Prescription',
@@ -398,52 +389,36 @@ def plot_heatmap_for_genotype(prescriptions_cluster, fig, top_atc_codes, max_mon
 
 # Main function to dynamically retrieve and plot cluster data
 def dynamic_plot_clusters(cluster_df, diagnoses, prescriptions, max_months=240):
-    # Step 1: Retrieve patients from Cluster 2 with Disease Class 17
+    
     disease_class = 17  # ICD Class 17: Symptoms & Signs
     cluster_label = 2  # Cluster 2
     patients_in_cluster_with_disease = retrieve_patients_with_disease_and_cluster(diagnoses, cluster_df, disease_class,
                                                                                   cluster_label)
 
-    # Step 2: Filter prescriptions for these patients
     prescriptions_cluster = prescriptions[prescriptions['Participant ID'].isin(patients_in_cluster_with_disease)]
-
-    # Find the first prescription date for each participant
     first_prescription_dates = prescriptions_cluster.groupby('Participant ID')[
         'Date prescription was issued'].min().reset_index()
     first_prescription_dates.rename(columns={'Date prescription was issued': 'First_Prescription_Date'}, inplace=True)
-
-    # Merge the first prescription dates with the main prescription data
+    
     prescriptions_cluster = pd.merge(prescriptions_cluster, first_prescription_dates, on='Participant ID', how='left')
-
-    # Find the top 10 most frequent ATC codes for the drugs prescribed
     top_atc_codes = prescriptions_cluster['atc_code'].value_counts().nlargest(10).index
-
-    # Plot heatmaps for drug intake patterns
     plot_genotype_heatmaps(prescriptions_cluster, prescriptions_cluster, cluster_label, cluster_label, 'Drug',
                            top_atc_codes, max_months)
 
 
-# Main function
 def main():
     from sklearn.cluster import KMeans
     import pandas as pd
     import pandas as pd
     import numpy as np
 
-    # Generate simulated data for 100 participants
     num_participants = 100
     np.random.seed(42)
 
     # Participant IDs
     participant_ids = np.arange(1, num_participants + 1)
-
-    # Random survival days between 100 to 2000
     survival_days = np.random.randint(100, 2000, size=num_participants)
-
-    # Genes and genotypes (assuming DPYD and CYP2C8 for the two genes)
     genes = np.random.choice(['DPYD', 'CYP2C8'], size=num_participants)
-
-    # Simulate genotypes for each gene
     genotypes_dpy = ['*2A/*2A', '*2A/*2B', '*2B/*2B']
     genotypes_cyp = ['*4/*4', '*1/*4', '*1/*1']
 
@@ -451,8 +426,6 @@ def main():
         np.random.choice(genotypes_dpy if gene == 'DPYD' else genotypes_cyp)
         for gene in genes
     ]
-
-    # Create a DataFrame
     genotype_survival = pd.DataFrame({
         'ParticipantID': participant_ids,
         'max_survival_days': survival_days,
@@ -460,31 +433,22 @@ def main():
         'Genotype': genotypes
     })
 
-    # Save it as 'genotype_survival_data.csv'
     genotype_survival.to_csv('genotype_survival_data.csv', index=False)
 
     print("Generated 'genotype_survival_data.csv' with simulated data:")
     print(genotype_survival.head())
-
-    # Load your dataset containing genotypes and survival data
     genotype_survival = pd.read_csv('genotype_survival_data.csv')
 
-    # Select relevant columns for clustering (e.g., survival times)
     clustering_data = genotype_survival[['max_survival_days']]
 
-    # Perform clustering
     kmeans = KMeans(n_clusters=3, random_state=42)
     genotype_survival['genotype_cluster'] = kmeans.fit_predict(clustering_data)
-
-    # Save the resulting dataframe with clusters
     genotype_survival.to_csv('cluster_genotype_survival.csv', index=False)
 
-    # Load the data (replace with your actual data paths)
     diagnoses = pd.read_csv("diseases_mapped_all_participants.csv")
     cluster_df = pd.read_csv("cluster_genotype_survival.csv")  # This contains clusters from the clustering step
     prescriptions = pd.read_csv("final_prescription_with_ATC_codes.csv")
 
-    # Plot drug prescription patterns for Cluster 2 with Disease Class 17
     dynamic_plot_clusters(cluster_df, diagnoses, prescriptions, max_months=240)
 
 
